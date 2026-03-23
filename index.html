@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nikhil Anil Survase | Digital Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@200;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --primary: #818cf8; /* Modern Indigo */
+    --accent: #2dd4bf; /* Teal */
+    --bg-dark: #030712;
+    --card-bg: rgba(31, 41, 55, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-main: #f9fafb;
+    --text-dim: #9ca3af;
+}
+
+body.light-mode {
+    --bg-dark: #f3f4f6;
+    --card-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --text-main: #111827;
+    --text-dim: #4b5563;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; scroll-behavior:smooth; }
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+/* BLUR DECORATION */
+.blob {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(129, 140, 248, 0.15) 0%, transparent 70%);
+    z-index: -1;
+    filter: blur(80px);
+}
+
+/* NAVIGATION */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(3, 7, 18, 0.6);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.nav {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+}
+
+.logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -1px;
+    color: var(--primary);
+}
+
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { 
+    text-decoration: none; 
+    color: var(--text-main); 
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: 0.3s;
+}
+.nav-links a:hover { color: var(--primary); }
+
+/* HERO SECTION */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(3rem, 10vw, 6rem);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.hero h1 span {
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+}
+
+/* BENTO GRID */
+.container { max-width: 1200px; margin: auto; padding: 4rem 2rem; }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    border-radius: 2rem;
+    padding: 2.5rem;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover { transform: translateY(-10px); border-color: var(--primary); }
+
+.about { grid-column: span 2; grid-row: span 2; }
+.skills { grid-column: span 2; }
+.projects { grid-column: span 4; }
+
+h2 { font-family: 'Space Grotesk', sans-serif; margin-bottom: 1.5rem; font-size: 2rem; }
+h3 { color: var(--accent); margin-bottom: 1rem; }
+
+/* SKILLS TAGS */
+.tag-container { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.tag {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 1.2rem;
+    border-radius: 100px;
+    border: 1px solid var(--glass-border);
+    font-size: 0.9rem;
+}
+
+/* CONTACT FORM */
+.contact-section { margin-top: 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+
+.form-group { margin-bottom: 1.5rem; }
+input, textarea {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 1rem;
+    color: white;
+    outline: none;
+}
+input:focus { border-color: var(--primary); }
+
+.submit-btn {
+    background: var(--primary);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.submit-btn:hover { box-shadow: 0 10px 20px rgba(129, 140, 248, 0.4); }
+
+/* FOOTER */
+footer { text-align: center; padding: 4rem 2rem; border-top: 1px solid var(--glass-border); opacity: 0.6; }
+
+/* ANIMATION */
+.reveal { opacity: 0; transform: translateY(30px); transition: 1s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+    .about, .skills, .projects { grid-column: span 1; }
+    .contact-section { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="blob" style="top: -100px; left: -100px;"></div>
+<div class="blob" style="bottom: -100px; right: -100px; background: radial-gradient(circle, rgba(45, 212, 191, 0.1) 0%, transparent 70%);"></div>
+
+<header>
+    <nav class="nav">
+        <div class="logo">NIKHIL.S</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><button onclick="toggleTheme()" style="background:none; border:none; cursor:pointer; color:inherit; font-size:1.2rem;">🌙</button></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <h1><span>Nikhil Anil Survase</span></h1>
+    <p id="typing">Building the future from Nanded.</p>
+    <a href="#work" class="submit-btn" style="text-decoration: none;">Explore My World</a>
+</section>
+
+<div class="container" id="work">
+    <div class="grid">
+        <div class="card about reveal">
+            <h2>About Me</h2>
+            <p>I am an enthusiastic boy with big dreams, hailing from <strong>Nanded, Maharashtra</strong>. I believe that engineering is the bridge between imagination and reality.</p>
+            <br>
+            <p>Currently, I am honing my skills in software logic and system design, driven by a goal to create technology that simplifies life.</p>
+        </div>
+
+        <div class="card skills reveal">
+            <h2>Technical Skills</h2>
+            <div class="tag-container">
+                <div class="tag">Python Development</div>
+                <div class="tag">C Language</div>
+                <div class="tag">Problem Solving</div>
+                <div class="tag">System Architecture</div>
+                <div class="tag">Algorithm Design</div>
+            </div>
+        </div>
+
+        <div class="card projects reveal">
+            <h2>Hackathons & Experience</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div>
+                    <h3>🚀 Hackathons</h3>
+                    <p>Building prototypes under pressure. Competing with the best minds to solve real-world problems.</p>
+                </div>
+                <div>
+                    <h3>💡 Adatthons</h3>
+                    <p>Deep dives into software logic and collaborative building. Turning complex ideas into functional code.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="contact-section reveal" id="contact">
+        <div>
+            <h2>Let's Connect</h2>
+            <p style="color: var(--text-dim); margin-bottom: 2rem;">Have a big idea or just want to say hi? My inbox is always open.</p>
+            <p><strong>Email:</strong> nikhilsurvase747@gmail.com</p>
+            <p><strong>Location:</strong> Nanded City, Maharashtra</p>
+        </div>
+        <form class="card" style="padding: 2rem;">
+            <div class="form-group">
+                <input type="text" placeholder="Your Name">
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+                <textarea rows="4" placeholder="Your Message"></textarea>
+            </div>
+            <button type="button" class="submit-btn" style="width:100%">Send Message</button>
+        </form>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; 2026 Nikhil Anil Survase | Nanded City, Maharashtra</p>
+</footer>
+
+<script>
+    // THEME TOGGLE
+    function toggleTheme() {
+        document.body.classList.toggle("light-mode");
+    }
+
+    // TYPING EFFECT
+    const texts = ["Python & C Developer", "Engineering Enthusiast", "Big Dreamer from Nanded"];
+    let i = 0, j = 0, isDeleting = false;
+    function type() {
+        let current = texts[i];
+        document.getElementById("typing").textContent = current.substring(0, j);
+        if (!isDeleting && j < current.length) j++;
+        else if (isDeleting && j > 0) j--;
+        else { isDeleting = !isDeleting; if (!isDeleting) i = (i + 1) % texts.length; }
+        setTimeout(type, isDeleting ? 50 : 150);
+    }
+    type();
+
+    // REVEAL ON SCROLL
+    window.addEventListener('scroll', () => {
+        document.querySelectorAll('.reveal').forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
+        });
+    });
+    window.dispatchEvent(new Event('scroll'));
+</script>
+
+</body>
+</html>
